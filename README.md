@@ -1,0 +1,2 @@
+# mhw_pc_armor_editor
+一些修改防具技能的mod每当版本更新都会失效，通过此脚本可以自动修改最新版的armor.am_dat文件
