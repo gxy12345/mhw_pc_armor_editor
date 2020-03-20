@@ -23,6 +23,10 @@ class Config(object):
     @property
     def target_hex_str(self):
         hex_str = "00"*9
+        # 如果没有指定技能3，则保持原有技能
+        if self.target_skill_ids[2] == "00":
+            self.target_skill_ids[2] = self.origin_skill_id
+            self.target_skill_levels[2] = self.origin_skill_level
         for skill, level in zip(self.target_skill_ids, self.target_skill_levels):
             hex_str += skill + "00" + level
         return hex_str
@@ -49,7 +53,7 @@ def read_config():
     wb = openpyxl.load_workbook('charm.xlsx', data_only=True)
     skill_sheet = wb['charm']
     charm_configs = []
-    for row in list(skill_sheet.rows)[1:]:
+    for row in list(skill_sheet.rows)[2:]:
         conf = Config()
         conf.config_name = row[0].value
         # 旧技能信息
