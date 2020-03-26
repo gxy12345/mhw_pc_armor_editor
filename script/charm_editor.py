@@ -79,11 +79,18 @@ def main_process():
         for armor in conf:
             print(armor.origin_hex_str)
             print(armor.target_hex_str)
-            if hex_str.find(armor.origin_hex_str) != -1:
-                hex_str = re.sub(armor.origin_hex_str, armor.target_hex_str, hex_str)
+            if re.search(armor.origin_hex_str, hex_str, flags= re.S | re.I):
+                print(re.search(armor.origin_skill_id, hex_str, flags= re.S | re.I))
+                hex_str = re.sub(armor.origin_hex_str, armor.target_hex_str, hex_str, flags= re.S | re.I)
                 print("%s has been successfully changed." % armor.config_name)
             else:
                 print("cannot find armor %s, please check if the hex value is correct" % armor.config_name)
+
+            # if hex_str.find(armor.origin_hex_str) != -1:
+            #     hex_str = re.sub(armor.origin_hex_str, armor.target_hex_str, hex_str)
+            #     print("%s has been successfully changed." % armor.config_name)
+            # else:
+            #     print("cannot find armor %s, please check if the hex value is correct" % armor.config_name)
         hex_byte = hex_str.encode()
         new_byte_data = binascii.a2b_hex(hex_byte)
 
